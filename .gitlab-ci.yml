@@ -1,0 +1,34 @@
+stages:
+  - lint
+  - test
+  - verify
+
+flake8-lint:
+  stage: lint
+  image: python:3.11-slim
+  script:
+    - pip install flake8
+    - flake8 BT1_QEMU_SystemMonitor/ --max-line-length=120 --show-source
+    - flake8 BT2_QEMU_SensorSim/ --max-line-length=120 --show-source
+    - flake8 BT3_Wokwi_GPIO/ --max-line-length=120 --show-source
+    - flake8 BT4_SenseHAT/ --max-line-length=120 --show-source
+    - flake8 BT5_Integration/ --max-line-length=120 --show-source
+
+test-sensor-sim:
+  stage: test
+  image: python:3.11-slim
+  script:
+    - pip install psutil
+    - cd BT2_QEMU_SensorSim && python sensor_sim.py
+
+check-structure:
+  stage: verify
+  image: alpine:latest
+  script:
+    - test -f BT1_QEMU_SystemMonitor/system_monitor.py || exit 1
+    - test -f BT2_QEMU_SensorSim/sensor_sim.py || exit 1
+    - test -f BT2_QEMU_SensorSim/sensor_visualize.py || exit 1
+    - test -f README.md || exit 1
+    - test -f .github/workflows/ci.yml || exit 1
+    - test -f .gitlab-ci.yml || exit 1
+    - echo "Structure OK"
