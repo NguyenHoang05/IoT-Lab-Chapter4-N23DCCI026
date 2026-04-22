@@ -1,8 +1,8 @@
-from time import sleep
-from sensor_sim import SimUltrasonic, SimPotentiometer
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')   # Bắt buộc cho QEMU headless
+import matplotlib.pyplot as plt  # noqa: E402
+from sensor_sim import SimUltrasonic, SimPotentiometer  # noqa: E402
+from time import sleep  # noqa: E402
 
 # Khởi tạo cảm biến
 us = SimUltrasonic(echo=24, trigger=23, base_distance=50.0)
@@ -15,7 +15,7 @@ for i in range(50):
     d = us.distance
     distances.append(d)
     print(f" Mẫu {i + 1}/50: {d:.1f} cm")
-    sleep(0.1)   # nghỉ 0.1s cho nhanh, thực tế có thể 0.5s
+    sleep(0.1)
 print(f"\nThu thập xong {len(distances)} mẫu.")
 
 # Vẽ đồ thị
@@ -27,8 +27,8 @@ ax.axhline(
     color='r',
     linestyle='--',
     linewidth=2,
-    label=f'Span = {
-        span:.0f} cm')
+    label=f"Span = {span:.0f} cm"
+)
 ax.fill_between(x, 0, [min(d, span) for d in distances],
                 alpha=0.2, color='red', label='Vùng Span!')
 ax.set_title('Ultrasonic Sensor Simulation --- Span Detection')
