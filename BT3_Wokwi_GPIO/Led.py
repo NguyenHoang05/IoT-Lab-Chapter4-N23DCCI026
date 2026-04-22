@@ -5,10 +5,12 @@ red = Pin(15, Pin.OUT)
 yellow = Pin(14, Pin.OUT)
 green = Pin(13, Pin.OUT)
 
+
 def all_off():
     red.value(0)
     yellow.value(0)
     green.value(0)
+
 
 while True:
     # Đèn đỏ 5 giây

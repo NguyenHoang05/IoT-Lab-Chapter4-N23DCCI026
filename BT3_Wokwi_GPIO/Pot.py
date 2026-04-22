@@ -11,13 +11,19 @@ while True:
     percent = raw / 65535 * 100
 
     if percent < 33:
-        green.value(1); yellow.value(0); red.value(0)
+        green.value(1)
+        yellow.value(0)
+        red.value(0)
         level = 'THẤP'
     elif percent < 66:
-        green.value(1); yellow.value(1); red.value(0)
+        green.value(1)
+        yellow.value(1)
+        red.value(0)
         level = 'TRUNG BÌNH'
     else:
-        green.value(1); yellow.value(1); red.value(1)
+        green.value(1)
+        yellow.value(1)
+        red.value(1)
         level = 'CAO'
 
     print(f'ADC: {raw:5d} | {percent:5.1f}% | {level}')
